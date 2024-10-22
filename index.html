@@ -22,6 +22,9 @@
             margin-top: 0;
             text-align: center;
         }
+        h1 a {
+            color: #fff;
+        }
         .post {
             border-bottom: 2px solid #fff;
         }
@@ -46,7 +49,7 @@
                 .then(text => {
                     const filenames = text.split('\n').filter(name => name.trim() !== '');
                     const container = document.querySelector('.container');
-                    container.innerHTML = '<h1>Digital Saylor</h1>'; // Reset container except for the title
+                    container.innerHTML = '<h1><a href="https://x.com/saylor_digital">Digital Saylor</a></h1>';
 
                     // Reverse the array in place
                     for (let i = 0, j = filenames.length - 1; i < j; i++, j--) {
