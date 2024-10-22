@@ -11,25 +11,19 @@ os.chdir(script_dir)
 # Path to the answers directory relative to the script
 answers_path = os.path.join(script_dir, answers_dir.strip('/'))
 
-# Check if the answers directory exists
+# Check if the answers directory exists, if not, create it
 if not os.path.exists(answers_path):
     os.makedirs(answers_path)
 
-# Function to get existing filenames from answers.txt
-def get_existing_files():
-    if os.path.exists(output_file):
-        with open(output_file, 'r') as f:
-            return set(line.strip() for line in f if line.strip())
-    return set()
-
-# Function to write filenames to answers.txt
+# Function to write filenames to answers.txt, overwriting existing content
 def write_filenames_to_file():
-    existing_files = get_existing_files()
-    with open(output_file, 'a') as out_file:
-        for file in os.listdir(answers_path):
-            if file.endswith('.txt') and file not in existing_files:
-                out_file.write(f"{file}\n")
-                existing_files.add(file)  # Add to set to ensure no duplicates even in this run
+    # Get all .txt files from the directory, sorted by name
+    txt_files = sorted([f for f in os.listdir(answers_path) if f.endswith('.txt')])
+    
+    # Write filenames to the output file, one per line, overwriting any previous content
+    with open(output_file, 'w') as out_file:
+        for file in txt_files:
+            out_file.write(f"{file}\n")
 
 # Main execution
 if __name__ == "__main__":
