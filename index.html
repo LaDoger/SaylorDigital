@@ -45,6 +45,7 @@
                 .then(response => response.text())
                 .then(text => {
                     const filenames = text.split('\n').filter(name => name.trim() !== '');
+                    filenames.reverse(); // Reverse the order of filenames
                     const container = document.querySelector('.container');
                     container.innerHTML = '<h1>Digital Saylor</h1>'; // Reset container except for the title
 
@@ -56,10 +57,10 @@
                                     const div = document.createElement('div');
                                     div.className = 'post';
                                     const p = document.createElement('p');
-                                    // Directly using textContent preserves the content as is, including line breaks
                                     p.textContent = fileContent;
                                     div.appendChild(p);
-                                    container.appendChild(div);
+                                    // Insert each new post at the beginning of the container, right after the title
+                                    container.insertBefore(div, container.children[1] || null);
                                 })
                                 .catch(error => console.error('Error loading file ' + filename + ':', error));
                         }
