@@ -47,15 +47,14 @@
             fetch('answers.txt')
                 .then(response => response.text())
                 .then(text => {
-                    const filenames = text.split('\n').filter(name => name.trim() !== '');
+                    let filenames = text.split('\n').filter(name => name.trim() !== '');
                     const container = document.querySelector('.container');
                     container.innerHTML = '<h1><a href="https://x.com/saylor_digital">Digital Saylor</a></h1>';
 
-                    // Reverse the array in place
-                    for (let i = 0, j = filenames.length - 1; i < j; i++, j--) {
-                        let temp = filenames[i];
-                        filenames[i] = filenames[j];
-                        filenames[j] = temp;
+                    // Shuffle the filenames array randomly
+                    for (let i = filenames.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [filenames[i], filenames[j]] = [filenames[j], filenames[i]]; // Swap elements
                     }
 
                     filenames.forEach(filename => {
@@ -66,9 +65,9 @@
                                     const div = document.createElement('div');
                                     div.className = 'post';
                                     const p = document.createElement('p');
-                                    p.textContent = fileContent; // Preserves line breaks and formatting
+                                    p.textContent = fileContent;
                                     div.appendChild(p);
-                                    container.appendChild(div); // Now appending in reversed order
+                                    container.appendChild(div);
                                 })
                                 .catch(error => console.error('Error loading file ' + filename + ':', error));
                         }
