@@ -1,3 +1,8 @@
+'''
+This script lists all `.txt` files in `/answers`
+and put in the `answers.txt` for the website to grab.
+'''
+
 import os
 
 # Define the directory paths
